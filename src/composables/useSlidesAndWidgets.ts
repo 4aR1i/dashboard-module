@@ -12,6 +12,7 @@ interface ISlidesAndWidgets {
   addedWidgets: ComputedRef<string[]>;
   activeSlideIndex: ComputedRef<number>;
 
+  addSlide: () => number;
   removeWidget: (widgetId: number) => void;
   addWidget: (widget: TWidget) => void;
   updateWidget: (widget: TWidget) => void;
@@ -34,6 +35,9 @@ export const [useSlidesAndWidgets, provideSlidesAndWidgets] = createInjectableHo
   createGlobalState((props: TUseSlidesAndWidgetsProps) => {
     const slidesMap = ref<TSlidesMap>({});
     const slidesMapInitial = ref<TSlidesMap>({});
+    const createdSlidesMap = ref<TSlidesMap>({});
+    const updatedSlidesMap = ref<TSlidesMap>({});
+    const removedSlidesMap = ref<TSlidesMap>({});
     const widgetsMap = ref<TWidgetsMap>({});
     const widgetsMapInitial = ref<TWidgetsMap>({});
     const createdWidgetsMap = ref<TWidgetsMap>({});
@@ -108,6 +112,22 @@ export const [useSlidesAndWidgets, provideSlidesAndWidgets] = createInjectableHo
       }
     }
 
+    // ДОБАВЛЕНИЕ СЛАЙДА
+    function addSlide() {
+      const newSlide = {
+        id: new Date().getTime(),
+        title: `#${slides.value.length}`,
+        active: false,
+        position: "right",
+      } as TSlide;
+
+      slidesMap.value[newSlide.id] = newSlide;
+      createdSlidesMap.value[newSlide.id] = newSlide;
+
+      const slideIndex = slides.value.findIndex((item) => item.id === newSlide.id);
+      return slideIndex === -1 ? activeSlideIndex.value : slideIndex;
+    }
+
     // СОХРАНЕНИЕ ВСЕХ ИЗМЕНЕНИЙ НА ДАШБОРДЕ
     function saveDashboard() {
       const dashboardEdits = {
@@ -140,6 +160,7 @@ export const [useSlidesAndWidgets, provideSlidesAndWidgets] = createInjectableHo
       addedWidgets,
       activeSlideIndex,
 
+      addSlide,
       removeWidget,
       addWidget,
       updateWidget,

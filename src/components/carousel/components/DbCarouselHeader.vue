@@ -5,8 +5,8 @@
     </div>
     <div v-else class="carousel_header_title">{{ slideRef.title }}</div>
     <div v-if="isEdit" class="carousel_header_actions" :class="{ 'carousel_header_actions--disabled': disabled }">
-      <!-- <span class="carousel_header_action" @click="openAddConfirmModal('right')"> Добавить </span>
-      <span
+      <span class="carousel_header_action" @click="$emit('add')"> Добавить </span>
+      <!-- <span
         v-if="widgetsOnCurrentSlide.length"
         class="carousel_header_action carousel_header_action--delete"
         @click="openClearConfirmModal"
@@ -16,7 +16,7 @@
       <span v-else class="carousel_header_action carousel_header_action--delete" @click="openRemoveConfirmModal">
         Удалить
       </span> -->
-      <span class="carousel_header_action carousel_header_action--save" @click="$emit('save')"> Сохранить </span>
+      <span class="carousel_header_action carousel_header_action--save" @click="save"> Сохранить </span>
       <span class="carousel_header_action" @click="cancel"> Отменить </span>
     </div>
     <div v-else class="carousel_header_actions">
@@ -45,18 +45,24 @@ type Props = {
 type Emits = {
   toggle: [];
   cancel: [];
+  add: [];
   save: [];
   setSlide: [slideIndex: number];
 };
 
 const { slide } = defineProps<Props>();
-const emit = defineEmits<Emits>();
+const emits = defineEmits<Emits>();
 const theme = inject(ThemeKey);
 const slideRef = toRef(() => slide);
 
+function save() {
+  emits("save");
+  emits("toggle");
+}
+
 function cancel() {
-  emit("cancel");
-  emit("toggle");
+  emits("cancel");
+  emits("toggle");
 }
 </script>
 

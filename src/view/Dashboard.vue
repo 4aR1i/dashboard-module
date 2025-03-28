@@ -8,6 +8,7 @@
           :disabled="isLoading"
           @toggle="toggleEditMode"
           @cancel="cancelEditing"
+          @add="add"
           @save="save"
           @set-slide="setSlide"
         />
@@ -91,6 +92,7 @@ const {
   addedWidgets,
   activeSlideIndex,
 
+  addSlide,
   removeWidget,
   addWidget,
   updateWidget,
@@ -120,6 +122,11 @@ const { drag, dragStart, dragEnd, onDrop } = useGridDnd(
 
 function toggleEditMode() {
   isEdit.value = !isEdit.value;
+}
+
+function add(){
+  const slideIndex = addSlide();
+  setSlide(slideIndex)
 }
 
 function save() {
