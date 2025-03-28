@@ -15,8 +15,8 @@
       </span>
       <span v-else class="carousel_header_action carousel_header_action--delete" @click="openRemoveConfirmModal">
         Удалить
-      </span>
-      <span class="carousel_header_action carousel_header_action--save" @click="save"> Сохранить </span> -->
+      </span> -->
+      <span class="carousel_header_action carousel_header_action--save" @click="$emit('save')"> Сохранить </span>
       <span class="carousel_header_action" @click="cancel"> Отменить </span>
     </div>
     <div v-else class="carousel_header_actions">
@@ -45,6 +45,7 @@ type Props = {
 type Emits = {
   toggle: [];
   cancel: [];
+  save: [];
   setSlide: [slideIndex: number];
 };
 

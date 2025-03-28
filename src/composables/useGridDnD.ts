@@ -10,7 +10,7 @@ export const useGridDnd = (
   carouselEl: MaybeRef<HTMLElement | null>,
   actions: {
     addWidget: (widget: TWidget) => void;
-    update: (widget: TWidget) => void;
+    updateWidget: (widget: TWidget) => void;
   },
 ) => {
   const draggingWidget = ref<TWidget | TMiniWidget | null>(null);
@@ -129,7 +129,7 @@ export const useGridDnd = (
         y: cell.y,
       });
     } else {
-      actions.update({ ...(widget as TWidget), x: cell.x, y: cell.y, slide: slide.value });
+      actions.updateWidget({ ...(widget as TWidget), x: cell.x, y: cell.y, slide: slide.value });
 
       draggingWidgetRef.value.style.display = "block";
     }

@@ -8,6 +8,7 @@
           :disabled="isLoading"
           @toggle="toggleEditMode"
           @cancel="cancelEditing"
+          @save="save"
           @set-slide="setSlide"
         />
         <DbCarousel v-model="currentSlideIndex" :carousel-height="gridHeight">
@@ -34,7 +35,7 @@
                 @dragend="dragEnd"
               >
                 <div class="widget">
-                  <div v-if="isEdit" class="widget_action" @click="remove(widget.id)">
+                  <div v-if="isEdit" class="widget_action" @click="removeWidget(widget.id)">
                     <db-svg-icon icon="delete" />
                   </div>
                   <slot :name="widget.component">{{ widget.title }}</slot>
@@ -76,8 +77,7 @@ type Props = {
 };
 
 type Emits = {
-  removeWidget: [widgetId: number];
-  updateWidget: [widget: TWidget];
+  save: [dashboardEdits: any];
 };
 
 const props = defineProps<Props>();
@@ -94,6 +94,7 @@ const {
   removeWidget,
   addWidget,
   updateWidget,
+  saveDashboard,
   cancelEditing,
 } = useSlidesAndWidgets({ slides: props.slides, widgets: props.widgets });
 
@@ -102,16 +103,6 @@ const carouselRef = ref<HTMLElement | null>(null);
 
 const currentSlide = computed(() => slides.value[currentSlideIndex.value]);
 const slidesCount = computed(() => slides.value.length);
-
-function update(widget: TWidget) {
-  updateWidget(widget);
-  emits("updateWidget", widget);
-}
-
-function remove(widgetId: number) {
-  removeWidget(widgetId);
-  emits("removeWidget", widgetId);
-}
 
 const { currentSlideIndex, setSlide, prevSlide, nextSlide } = useCarousel();
 const { cellWidthPercent, cellHeightPercent, gridHeight } = useGridSettings(carouselRef);
@@ -123,12 +114,17 @@ const { drag, dragStart, dragEnd, onDrop } = useGridDnd(
   carouselRef,
   {
     addWidget,
-    update,
+    updateWidget,
   },
 );
 
 function toggleEditMode() {
   isEdit.value = !isEdit.value;
+}
+
+function save() {
+  const dashboardEdits = saveDashboard();
+  emits("save", dashboardEdits);
 }
 
 watchEffect(() => setSlide(activeSlideIndex.value));

@@ -3,7 +3,7 @@ import { cloneDeep } from "lodash";
 import { createGlobalState } from "@vueuse/core";
 import { createInjectableHook } from "@/composables";
 import { arrayToMap } from "@/utils";
-import { TSlide, TWidget } from "@/types";
+import { TDashboardEdits, TSlide, TWidget } from "@/types";
 
 interface ISlidesAndWidgets {
   slides: ComputedRef<TSlide[]>;
@@ -15,6 +15,7 @@ interface ISlidesAndWidgets {
   removeWidget: (widgetId: number) => void;
   addWidget: (widget: TWidget) => void;
   updateWidget: (widget: TWidget) => void;
+  saveDashboard: () => TDashboardEdits;
   cancelEditing: () => void;
 }
 
@@ -107,6 +108,23 @@ export const [useSlidesAndWidgets, provideSlidesAndWidgets] = createInjectableHo
       }
     }
 
+    // СОХРАНЕНИЕ ВСЕХ ИЗМЕНЕНИЙ НА ДАШБОРДЕ
+    function saveDashboard() {
+      const dashboardEdits = {
+        widgets: {
+          add: [...Object.values(createdWidgetsMap.value)],
+          update: [...Object.values(updatedWidgetsMap.value)],
+          remove: [...Object.values(removedWidgetsMap.value)],
+        },
+      };
+
+      createdWidgetsMap.value = {};
+      updatedWidgetsMap.value = {};
+      removedWidgetsMap.value = {};
+
+      return dashboardEdits;
+    }
+
     // ОТМЕНА РЕДАКТИРОВАНИЯ
     function cancelEditing() {
       widgetsMap.value = cloneDeep(widgetsMapInitial.value);
@@ -125,6 +143,7 @@ export const [useSlidesAndWidgets, provideSlidesAndWidgets] = createInjectableHo
       removeWidget,
       addWidget,
       updateWidget,
+      saveDashboard,
       cancelEditing,
     };
   }),
