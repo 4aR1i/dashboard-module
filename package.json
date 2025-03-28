@@ -14,7 +14,9 @@
   "dependencies": {
     "@heroicons/vue": "^2.2.0",
     "@vueuse/core": "^13.0.0",
-    "lodash": "^4.17.21",
+    "lodash": "^4.17.21"
+  },
+  "peerDependencies": {
     "vue": "^3.3.0"
   },
   "devDependencies": {
