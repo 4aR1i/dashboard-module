@@ -1,0 +1,53 @@
+[data-theme="dark"] {
+  --body_bg: #000d39;
+  --main_text_color: #ffffff;
+  --sub_text_color: #ffffff;
+  --widget_main_bg: linear-gradient(225deg, #0076e3 0, #0d3394 85%);
+  --widget_second_bg: linear-gradient(225deg, #00bbe4 0, #005cb0 100%);
+  --grid_lines_color: rgba(159, 183, 243, 1);
+  --nav_btn_color: rgba(255, 255, 255, 0.15);
+  --widget_placeholder_color: rgba(255, 255, 255, 0.15);
+  --footer_navigation_bg: rgba(158, 168, 219, 0.5);
+  --footer_navigation_active_bg: rgba(159, 183, 243, 1);
+  --menu_bg: rgba(28, 43, 93, 0.8);
+  --menu_selected_bg: #0e1c4b;
+  --menu_selected_border: #5fbeff;
+  --menu_icon_color: #ffffff;
+  --menu_icon_active_color: #ffffff;
+  --submenu_bg: rgba(14, 28, 75, 0.7);
+  --submenu_item_icon_bg: #0479de;
+  --submenu_item_bg: #354995;
+  --modal_bg: #001d66;
+
+  // --widget_menu_icon_fill: #eff5ff;
+  // --widget_menu_icon_bg_hover: #0097ff;
+  // --widget_menu_bg: #0097ff;
+  // --widget_menu_bg_hover: #003585;
+}
+
+[data-theme="light"] {
+  --body_bg: #eff5ff;
+  --main_text_color: #333333;
+  --sub_text_color: #ffffff;
+  --widget_main_bg: #ffffff;
+  --widget_second_bg: linear-gradient(50deg, #ffffff 0%, #ffffff 30%, #95ccff 100%);
+  --grid_lines_color: rgba(143, 149, 178, 1);
+  --nav_btn_color: rgba(42, 142, 211, 0.15);
+  --widget_placeholder_color: rgba(42, 142, 211, 0.15);
+  --footer_navigation_bg: rgba(143, 149, 178, 0.5);
+  --footer_navigation_active_bg: rgba(143, 149, 178, 1);
+  --menu_bg: rgba(42, 142, 211, 0.8);
+  --menu_selected_bg: #0071be;
+  --menu_selected_border: #ffffff;
+  --menu_icon_color: rgba(6, 123, 203, 0.6);
+  --menu_icon_active_color: #ffffff;
+  --submenu_bg: rgba(6, 123, 203, 0.6);
+  --submenu_item_icon_bg: linear-gradient(225deg, #ffffff 31.58%, #bae4ff 133.44%);
+  --submenu_item_bg: #44a8ed;
+  --modal_bg: #ffffff;
+
+  // --widget_menu_icon_fill: #8f95b2;
+  // --widget_menu_icon_bg_hover: #eff5ff;
+  // --widget_menu_bg: #ffffff;
+  // --widget_menu_bg_hover: #067bcb;
+}
