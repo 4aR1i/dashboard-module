@@ -55,7 +55,7 @@ export const [useSlidesAndWidgets, provideSlidesAndWidgets] = createInjectableHo
       const slides = Object.values(slidesMap.value);
       const leftSlides = slides.filter((s) => s.position === "left");
       const activeSlide = slides.find((s) => s.active)!;
-      const rightSlides = slides.filter((s) => s.position === "right").reverse();
+      const rightSlides = slides.filter((s) => s.position === "right");
       return [...leftSlides, activeSlide, ...rightSlides].filter(Boolean);
     });
     const widgets = computed(() => Object.values(widgetsMap.value));
@@ -116,7 +116,7 @@ export const [useSlidesAndWidgets, provideSlidesAndWidgets] = createInjectableHo
     function addSlide() {
       const newSlide = {
         id: new Date().getTime(),
-        title: `#${slides.value.length}`,
+        title: `#${slides.value.length + 1}`,
         active: false,
         position: "right",
       } as TSlide;
@@ -136,6 +136,11 @@ export const [useSlidesAndWidgets, provideSlidesAndWidgets] = createInjectableHo
           update: [...Object.values(updatedWidgetsMap.value)],
           remove: [...Object.values(removedWidgetsMap.value)],
         },
+        slides: {
+          add: [...Object.values(createdSlidesMap.value)],
+          update: [...Object.values(updatedSlidesMap.value)],
+          remove: [...Object.values(removedSlidesMap.value)],
+        },
       };
 
       createdWidgetsMap.value = {};
@@ -151,6 +156,11 @@ export const [useSlidesAndWidgets, provideSlidesAndWidgets] = createInjectableHo
       createdWidgetsMap.value = {};
       updatedWidgetsMap.value = {};
       removedWidgetsMap.value = {};
+
+      slidesMap.value = cloneDeep(slidesMapInitial.value);
+      createdSlidesMap.value = {};
+      updatedSlidesMap.value = {};
+      removedSlidesMap.value = {};
     }
 
     return {
