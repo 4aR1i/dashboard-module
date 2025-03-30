@@ -13,6 +13,7 @@ interface ISlidesAndWidgets {
   activeSlideIndex: ComputedRef<number>;
 
   addSlide: () => number;
+  removeSlide: (slide: TSlide) => void;
   removeWidget: (widgetId: number) => void;
   addWidget: (widget: TWidget) => void;
   updateWidget: (widget: TWidget) => void;
@@ -124,8 +125,21 @@ export const [useSlidesAndWidgets, provideSlidesAndWidgets] = createInjectableHo
       slidesMap.value[newSlide.id] = newSlide;
       createdSlidesMap.value[newSlide.id] = newSlide;
 
+      console.log("slidesMap", slidesMap.value);
+      console.log("removedSlidesMap", removedSlidesMap.value);
+
       const slideIndex = slides.value.findIndex((item) => item.id === newSlide.id);
       return slideIndex === -1 ? activeSlideIndex.value : slideIndex;
+    }
+
+    // УДАЛЕНИЕ СЛАЙДА
+    function removeSlide(slide: TSlide) {
+      const slideId = slide.id;
+      delete slidesMap.value[slideId];
+      removedSlidesMap.value[slideId] = slide;
+
+      console.log("slidesMap", slidesMap.value);
+      console.log("removedSlidesMap", removedSlidesMap.value);
     }
 
     // СОХРАНЕНИЕ ВСЕХ ИЗМЕНЕНИЙ НА ДАШБОРДЕ
@@ -171,6 +185,7 @@ export const [useSlidesAndWidgets, provideSlidesAndWidgets] = createInjectableHo
       activeSlideIndex,
 
       addSlide,
+      removeSlide,
       removeWidget,
       addWidget,
       updateWidget,

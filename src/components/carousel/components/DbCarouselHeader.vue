@@ -12,10 +12,8 @@
         @click="openClearConfirmModal"
       >
         Очистить
-      </span>
-      <span v-else class="carousel_header_action carousel_header_action--delete" @click="openRemoveConfirmModal">
-        Удалить
       </span> -->
+      <span class="carousel_header_action carousel_header_action--delete" @click="$emit('remove')"> Удалить </span>
       <span class="carousel_header_action carousel_header_action--save" @click="save"> Сохранить </span>
       <span class="carousel_header_action" @click="cancel"> Отменить </span>
     </div>
@@ -45,6 +43,7 @@ type Props = {
 type Emits = {
   toggle: [];
   cancel: [];
+  remove: [];
   add: [];
   save: [];
   setSlide: [slideIndex: number];

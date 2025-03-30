@@ -8,6 +8,7 @@
           :disabled="isLoading"
           @toggle="toggleEditMode"
           @cancel="cancel"
+          @remove="remove"
           @add="add"
           @save="save"
           @set-slide="setSlide"
@@ -93,6 +94,7 @@ const {
   activeSlideIndex,
 
   addSlide,
+  removeSlide,
   removeWidget,
   addWidget,
   updateWidget,
@@ -126,6 +128,10 @@ function toggleEditMode() {
     initialSlideIndex.value = currentSlideIndex.value;
   }
   isEdit.value = !isEdit.value;
+}
+
+function remove() {
+  removeSlide(currentSlide.value);
 }
 
 function add() {
