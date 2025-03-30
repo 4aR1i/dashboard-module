@@ -166,6 +166,7 @@ watch(
   (v) => {
     if (!v) addSlide(true);
   },
+  { immediate: true },
 );
 
 watchEffect(() => setSlide(activeSlideIndex.value));
