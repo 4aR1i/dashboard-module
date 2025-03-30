@@ -4,7 +4,7 @@
       <div ref="carouselRef" class="carousel">
         <DbCarouselHeader
           :is-edit="isEdit"
-          :slide="slides[currentSlideIndex]"
+          :slide="currentSlide"
           :widgets-count="widgetsOnCurrentSlideCount"
           :disabled="isLoading"
           @toggle="toggleEditMode"

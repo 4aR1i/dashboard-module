@@ -30,7 +30,7 @@
 </template>
 
 <script lang="ts" setup>
-import { inject, ref, toRef, watch } from "vue";
+import { inject, ref, watch } from "vue";
 import { DbToggleTheme } from "@/components/toggle-theme";
 import { DbSvgIcon } from "@/components/ui";
 import { ThemeKey } from "@/composables";
