@@ -69,6 +69,13 @@ function cancel() {
   emits("toggle");
 }
 
+watch(
+  () => slide,
+  (v) => {
+    localSlide.value = v;
+  },
+);
+
 watch(localSlide, (v) => {
   emits("update", v);
 });
