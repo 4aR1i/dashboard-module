@@ -131,6 +131,9 @@ function toggleEditMode() {
 }
 
 function remove() {
+  if (currentSlideIndex.value === slides.value.length - 1) {
+    setSlide(currentSlideIndex.value - 1);
+  }
   removeSlide(currentSlide.value);
 }
 

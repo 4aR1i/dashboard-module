@@ -125,9 +125,6 @@ export const [useSlidesAndWidgets, provideSlidesAndWidgets] = createInjectableHo
       slidesMap.value[newSlide.id] = newSlide;
       createdSlidesMap.value[newSlide.id] = newSlide;
 
-      console.log("slidesMap", slidesMap.value);
-      console.log("removedSlidesMap", removedSlidesMap.value);
-
       const slideIndex = slides.value.findIndex((item) => item.id === newSlide.id);
       return slideIndex === -1 ? activeSlideIndex.value : slideIndex;
     }
@@ -136,10 +133,12 @@ export const [useSlidesAndWidgets, provideSlidesAndWidgets] = createInjectableHo
     function removeSlide(slide: TSlide) {
       const slideId = slide.id;
       delete slidesMap.value[slideId];
-      removedSlidesMap.value[slideId] = slide;
+      delete createdSlidesMap.value[slideId];
+      delete updatedSlidesMap.value[slideId];
 
-      console.log("slidesMap", slidesMap.value);
-      console.log("removedSlidesMap", removedSlidesMap.value);
+      if (slidesMapInitial.value[slideId]) {
+        removedSlidesMap.value[slideId] = slide;
+      }
     }
 
     // СОХРАНЕНИЕ ВСЕХ ИЗМЕНЕНИЙ НА ДАШБОРДЕ

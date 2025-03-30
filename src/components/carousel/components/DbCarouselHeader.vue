@@ -13,7 +13,9 @@
       >
         Очистить
       </span> -->
-      <span class="carousel_header_action carousel_header_action--delete" @click="$emit('remove')"> Удалить </span>
+      <span v-if="!slide.active" class="carousel_header_action carousel_header_action--delete" @click="$emit('remove')">
+        Удалить
+      </span>
       <span class="carousel_header_action carousel_header_action--save" @click="save"> Сохранить </span>
       <span class="carousel_header_action" @click="cancel"> Отменить </span>
     </div>
