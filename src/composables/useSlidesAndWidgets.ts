@@ -53,13 +53,7 @@ export const [useSlidesAndWidgets, provideSlidesAndWidgets] = createInjectableHo
       widgetsMap.value = arrayToMap(props.widgets);
     });
 
-    const slides = computed(() => {
-      const slides = Object.values(slidesMap.value);
-      const leftSlides = slides.filter((s) => s.position === "left");
-      const activeSlide = slides.find((s) => s.active)!;
-      const rightSlides = slides.filter((s) => s.position === "right");
-      return [...leftSlides, activeSlide, ...rightSlides].filter(Boolean);
-    });
+    const slides = computed(() => Object.values(slidesMap.value));
     const widgets = computed(() => Object.values(widgetsMap.value));
     const widgetsBySlide = computed(() =>
       widgets.value.reduce((acc: Record<number, TWidget[]>, widget: TWidget) => {
@@ -136,7 +130,6 @@ export const [useSlidesAndWidgets, provideSlidesAndWidgets] = createInjectableHo
         id: new Date().getTime(),
         title: `#${slides.value.length + 1}`,
         active: false,
-        position: "right",
       } as TSlide;
 
       slidesMap.value[newSlide.id] = newSlide;
