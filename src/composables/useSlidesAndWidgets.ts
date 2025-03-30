@@ -46,17 +46,6 @@ export const [useSlidesAndWidgets, provideSlidesAndWidgets] = createInjectableHo
     const updatedWidgetsMap = ref<TWidgetsMap>({});
     const removedWidgetsMap = ref<TWidgetsMap>({});
 
-    watchEffect(() => {
-      slidesMapInitial.value = arrayToMap(props.slides);
-      slidesMap.value = arrayToMap(props.slides);
-      widgetsMapInitial.value = arrayToMap(props.widgets);
-      widgetsMap.value = arrayToMap(props.widgets);
-
-      if (!props.slides.length) {
-        addSlide(true);
-      }
-    });
-
     const slides = computed(() => Object.values(slidesMap.value));
     const widgets = computed(() => Object.values(widgetsMap.value));
     const widgetsBySlide = computed(() =>
@@ -70,6 +59,17 @@ export const [useSlidesAndWidgets, provideSlidesAndWidgets] = createInjectableHo
     );
     const addedWidgets = computed(() => widgets.value.map((widget) => widget.component));
     const activeSlideIndex = computed(() => slides.value.findIndex((slide) => slide.active) ?? 0);
+
+    watchEffect(() => {
+      slidesMapInitial.value = arrayToMap(props.slides);
+      slidesMap.value = arrayToMap(props.slides);
+      widgetsMapInitial.value = arrayToMap(props.widgets);
+      widgetsMap.value = arrayToMap(props.widgets);
+
+      if (!props.slides.length) {
+        addSlide(true);
+      }
+    });
 
     // УДАЛЕНИЕ ВИДЖЕТА
     function removeWidget(widgetId: number) {
