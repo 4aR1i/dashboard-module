@@ -169,6 +169,9 @@ export const [useSlidesAndWidgets, provideSlidesAndWidgets] = createInjectableHo
         },
       };
 
+      createdSlidesMap.value = {};
+      updatedSlidesMap.value = {};
+      removedSlidesMap.value = {};
       createdWidgetsMap.value = {};
       updatedWidgetsMap.value = {};
       removedWidgetsMap.value = {};
@@ -206,7 +209,8 @@ export const [useSlidesAndWidgets, provideSlidesAndWidgets] = createInjectableHo
 
     watch(
       slides,
-      () => {
+      (v) => {
+        console.log("slides", v);
         console.log("createdSlidesMap", createdSlidesMap.value);
         console.log("updatedSlidesMap", updatedSlidesMap.value);
         console.log("removedSlidesMap", removedSlidesMap.value);
