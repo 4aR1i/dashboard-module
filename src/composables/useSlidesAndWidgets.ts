@@ -51,6 +51,10 @@ export const [useSlidesAndWidgets, provideSlidesAndWidgets] = createInjectableHo
       slidesMap.value = arrayToMap(props.slides);
       widgetsMapInitial.value = arrayToMap(props.widgets);
       widgetsMap.value = arrayToMap(props.widgets);
+
+      if (!props.slides.length) {
+        addSlide(true);
+      }
     });
 
     const slides = computed(() => Object.values(slidesMap.value));
@@ -125,11 +129,11 @@ export const [useSlidesAndWidgets, provideSlidesAndWidgets] = createInjectableHo
     }
 
     // ДОБАВЛЕНИЕ СЛАЙДА
-    function addSlide() {
+    function addSlide(isActiveSlide: boolean = false) {
       const newSlide = {
         id: new Date().getTime(),
         title: `#${slides.value.length + 1}`,
-        active: false,
+        active: isActiveSlide,
       } as TSlide;
 
       slidesMap.value[newSlide.id] = newSlide;
