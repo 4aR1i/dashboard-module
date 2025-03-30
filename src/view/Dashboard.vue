@@ -5,6 +5,7 @@
         <DbCarouselHeader
           :is-edit="isEdit"
           :slide="slides[currentSlideIndex]"
+          :widgets-count="widgetsOnCurrentSlideCount"
           :disabled="isLoading"
           @toggle="toggleEditMode"
           @cancel="cancel"
@@ -111,6 +112,7 @@ const initialSlideIndex = ref(currentSlideIndex.value);
 
 const currentSlide = computed(() => slides.value[currentSlideIndex.value]);
 const slidesCount = computed(() => slides.value.length);
+const widgetsOnCurrentSlideCount = computed(() => widgetsBySlide.value[currentSlide.value.id]?.length ?? 0);
 
 const { cellWidthPercent, cellHeightPercent, gridHeight } = useGridSettings(carouselRef);
 const { drag, dragStart, dragEnd, onDrop } = useGridDnd(

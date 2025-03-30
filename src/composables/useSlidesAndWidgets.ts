@@ -120,6 +120,12 @@ export const [useSlidesAndWidgets, provideSlidesAndWidgets] = createInjectableHo
         if (widgetsMapInitial.value[widget.id]) {
           removedWidgetsMap.value[widget.id] = widget;
         }
+        if (createdWidgetsMap.value[widget.id]) {
+          delete createdWidgetsMap.value[widget.id];
+        }
+        if (updatedWidgetsMap.value[widget.id]) {
+          delete updatedWidgetsMap.value[widget.id];
+        }
         delete widgetsMap.value[widget.id];
       });
     }

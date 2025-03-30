@@ -6,14 +6,14 @@
     <div v-else class="carousel_header_title">{{ slideRef.title }}</div>
     <div v-if="isEdit" class="carousel_header_actions" :class="{ 'carousel_header_actions--disabled': disabled }">
       <span class="carousel_header_action" @click="$emit('add')"> Добавить </span>
-      <span
-        v-if="true"
-        class="carousel_header_action carousel_header_action--delete"
-        @click="$emit('clear')"
-      >
+      <span v-if="widgetsCount" class="carousel_header_action carousel_header_action--delete" @click="$emit('clear')">
         Очистить
       </span>
-      <span v-if="!slide.active" class="carousel_header_action carousel_header_action--delete" @click="$emit('remove')">
+      <span
+        v-else-if="!slide.active"
+        class="carousel_header_action carousel_header_action--delete"
+        @click="$emit('remove')"
+      >
         Удалить
       </span>
       <span class="carousel_header_action carousel_header_action--save" @click="save"> Сохранить </span>
@@ -39,6 +39,7 @@ import { TSlide } from "@/types";
 type Props = {
   isEdit: boolean;
   slide: TSlide;
+  widgetsCount: number;
   disabled: boolean;
 };
 
