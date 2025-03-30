@@ -65,7 +65,7 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, ref, watchEffect } from "vue";
+import { computed, ref, watch, watchEffect } from "vue";
 import { TService, TSlide, TWidget } from "@/types";
 import { DbCarousel, DbCarouselSlide, DbCarouselHeader, DbCarouselNav, DbCarouselBtn } from "@/components/carousel";
 import { DbGrid, DbGridItem } from "@/components/grid";
@@ -160,6 +160,13 @@ function cancel() {
   setSlide(initialSlideIndex.value);
   cancelEditing();
 }
+
+watch(
+  () => props.slides.length,
+  (v) => {
+    if (!v) addSlide(true);
+  },
+);
 
 watchEffect(() => setSlide(activeSlideIndex.value));
 </script>
