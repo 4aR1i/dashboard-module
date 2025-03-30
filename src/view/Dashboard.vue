@@ -131,10 +131,10 @@ function toggleEditMode() {
 }
 
 function remove() {
+  removeSlide(currentSlide.value);
   if (currentSlideIndex.value === slides.value.length - 1) {
     setSlide(currentSlideIndex.value - 1);
   }
-  removeSlide(currentSlide.value);
 }
 
 function add() {
