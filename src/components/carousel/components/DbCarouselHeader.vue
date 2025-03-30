@@ -6,13 +6,13 @@
     <div v-else class="carousel_header_title">{{ slideRef.title }}</div>
     <div v-if="isEdit" class="carousel_header_actions" :class="{ 'carousel_header_actions--disabled': disabled }">
       <span class="carousel_header_action" @click="$emit('add')"> Добавить </span>
-      <!-- <span
-        v-if="widgetsOnCurrentSlide.length"
+      <span
+        v-if="true"
         class="carousel_header_action carousel_header_action--delete"
-        @click="openClearConfirmModal"
+        @click="$emit('clear')"
       >
         Очистить
-      </span> -->
+      </span>
       <span v-if="!slide.active" class="carousel_header_action carousel_header_action--delete" @click="$emit('remove')">
         Удалить
       </span>
@@ -45,6 +45,7 @@ type Props = {
 type Emits = {
   toggle: [];
   cancel: [];
+  clear: [];
   remove: [];
   add: [];
   save: [];

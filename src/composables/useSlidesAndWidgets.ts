@@ -14,6 +14,7 @@ interface ISlidesAndWidgets {
 
   addSlide: () => number;
   removeSlide: (slide: TSlide) => void;
+  clearSlide: (slideId: number) => void;
   removeWidget: (widgetId: number) => void;
   addWidget: (widget: TWidget) => void;
   updateWidget: (widget: TWidget) => void;
@@ -113,6 +114,16 @@ export const [useSlidesAndWidgets, provideSlidesAndWidgets] = createInjectableHo
       }
     }
 
+    // ОЧИСТКА СЛАЙДА ОТ ВИДЖЕТОВ
+    function clearSlide(slideId: number) {
+      widgetsBySlide.value[slideId].forEach((widget) => {
+        if (widgetsMapInitial.value[widget.id]) {
+          removedWidgetsMap.value[widget.id] = widget;
+        }
+        delete widgetsMap.value[widget.id];
+      });
+    }
+
     // ДОБАВЛЕНИЕ СЛАЙДА
     function addSlide() {
       const newSlide = {
@@ -205,6 +216,7 @@ export const [useSlidesAndWidgets, provideSlidesAndWidgets] = createInjectableHo
 
       addSlide,
       removeSlide,
+      clearSlide,
       removeWidget,
       addWidget,
       updateWidget,
