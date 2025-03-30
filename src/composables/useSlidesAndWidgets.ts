@@ -132,6 +132,9 @@ export const [useSlidesAndWidgets, provideSlidesAndWidgets] = createInjectableHo
         active: isActiveSlide,
       } as TSlide;
 
+      if (isActiveSlide) {
+        slidesMapInitial.value[newSlide.id] = newSlide;
+      }
       slidesMap.value[newSlide.id] = newSlide;
       createdSlidesMap.value[newSlide.id] = newSlide;
 
