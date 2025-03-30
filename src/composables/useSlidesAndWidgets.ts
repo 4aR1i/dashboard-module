@@ -1,4 +1,4 @@
-import { computed, ComputedRef, ref, watchEffect } from "vue";
+import { computed, ComputedRef, ref, watch, watchEffect } from "vue";
 import { cloneDeep } from "lodash";
 import { createGlobalState } from "@vueuse/core";
 import { createInjectableHook } from "@/composables";
@@ -175,6 +175,26 @@ export const [useSlidesAndWidgets, provideSlidesAndWidgets] = createInjectableHo
       updatedWidgetsMap.value = {};
       removedWidgetsMap.value = {};
     }
+
+    watch(
+      widgets,
+      () => {
+        console.log("createdWidgetsMap", createdWidgetsMap.value);
+        console.log("updatedWidgetsMap", updatedWidgetsMap.value);
+        console.log("removedWidgetsMap", removedWidgetsMap.value);
+      },
+      { deep: true, immediate: true },
+    );
+
+    watch(
+      slides,
+      () => {
+        console.log("createdSlidesMap", createdSlidesMap.value);
+        console.log("updatedSlidesMap", updatedSlidesMap.value);
+        console.log("removedSlidesMap", removedSlidesMap.value);
+      },
+      { deep: true, immediate: true },
+    );
 
     return {
       slides,
