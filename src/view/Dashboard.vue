@@ -123,7 +123,7 @@ const { drag, dragStart, dragEnd, onDrop } = useGridDnd(
 
 function toggleEditMode() {
   if (!isEdit.value) {
-    initialSlideIndex.value = activeSlideIndex.value;
+    initialSlideIndex.value = currentSlideIndex.value;
   }
   isEdit.value = !isEdit.value;
 }
