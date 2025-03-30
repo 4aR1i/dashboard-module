@@ -152,15 +152,15 @@ export const [useSlidesAndWidgets, provideSlidesAndWidgets] = createInjectableHo
 
     // ОТМЕНА РЕДАКТИРОВАНИЯ
     function cancelEditing() {
-      widgetsMap.value = cloneDeep(widgetsMapInitial.value);
-      createdWidgetsMap.value = {};
-      updatedWidgetsMap.value = {};
-      removedWidgetsMap.value = {};
-
       slidesMap.value = cloneDeep(slidesMapInitial.value);
       createdSlidesMap.value = {};
       updatedSlidesMap.value = {};
       removedSlidesMap.value = {};
+
+      widgetsMap.value = cloneDeep(widgetsMapInitial.value);
+      createdWidgetsMap.value = {};
+      updatedWidgetsMap.value = {};
+      removedWidgetsMap.value = {};
     }
 
     return {

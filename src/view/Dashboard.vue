@@ -7,7 +7,7 @@
           :slide="slides[currentSlideIndex]"
           :disabled="isLoading"
           @toggle="toggleEditMode"
-          @cancel="cancelEditing"
+          @cancel="cancel"
           @add="add"
           @save="save"
           @set-slide="setSlide"
@@ -99,14 +99,15 @@ const {
   saveDashboard,
   cancelEditing,
 } = useSlidesAndWidgets({ slides: props.slides, widgets: props.widgets });
+const { currentSlideIndex, setSlide, prevSlide, nextSlide } = useCarousel();
 
-const isEdit = ref(false);
 const carouselRef = ref<HTMLElement | null>(null);
+const isEdit = ref(false);
+const initialSlideIndex = ref(currentSlideIndex.value);
 
 const currentSlide = computed(() => slides.value[currentSlideIndex.value]);
 const slidesCount = computed(() => slides.value.length);
 
-const { currentSlideIndex, setSlide, prevSlide, nextSlide } = useCarousel();
 const { cellWidthPercent, cellHeightPercent, gridHeight } = useGridSettings(carouselRef);
 const { drag, dragStart, dragEnd, onDrop } = useGridDnd(
   widgets,
@@ -121,17 +122,25 @@ const { drag, dragStart, dragEnd, onDrop } = useGridDnd(
 );
 
 function toggleEditMode() {
+  if (!isEdit.value) {
+    initialSlideIndex.value = activeSlideIndex.value;
+  }
   isEdit.value = !isEdit.value;
 }
 
-function add(){
+function add() {
   const slideIndex = addSlide();
-  setSlide(slideIndex)
+  setSlide(slideIndex);
 }
 
 function save() {
   const dashboardEdits = saveDashboard();
   emits("save", dashboardEdits);
+}
+
+function cancel() {
+  setSlide(initialSlideIndex.value);
+  cancelEditing();
 }
 
 watchEffect(() => setSlide(activeSlideIndex.value));
