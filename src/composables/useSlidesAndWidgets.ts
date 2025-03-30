@@ -211,6 +211,7 @@ export const [useSlidesAndWidgets, provideSlidesAndWidgets] = createInjectableHo
       slides,
       (v) => {
         console.log("slides", v);
+        console.log("slidesMap", slidesMap.value);
         console.log("createdSlidesMap", createdSlidesMap.value);
         console.log("updatedSlidesMap", updatedSlidesMap.value);
         console.log("removedSlidesMap", removedSlidesMap.value);
