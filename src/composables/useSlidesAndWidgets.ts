@@ -13,6 +13,7 @@ interface ISlidesAndWidgets {
   activeSlideIndex: ComputedRef<number>;
 
   addSlide: (isActiveSlide?: boolean) => number;
+  updateSlide: (slide: TSlide) => void;
   removeSlide: (slide: TSlide) => void;
   clearSlide: (slideId: number) => void;
   removeWidget: (widgetId: number) => void;
@@ -142,6 +143,18 @@ export const [useSlidesAndWidgets, provideSlidesAndWidgets] = createInjectableHo
       return slideIndex === -1 ? activeSlideIndex.value : slideIndex;
     }
 
+    // ОБНОВЛЕНИЕ СЛАЙДА
+    function updateSlide(slide: TSlide) {
+      const slideId = slide.id;
+      if (slidesMapInitial.value[slideId]) {
+        updatedSlidesMap.value[slideId] = slidesMap.value[slideId];
+      }
+
+      if (createdSlidesMap.value[slideId]) {
+        createdSlidesMap.value[slideId] = { ...slide };
+      }
+    }
+
     // УДАЛЕНИЕ СЛАЙДА
     function removeSlide(slide: TSlide) {
       const slideId = slide.id;
@@ -198,16 +211,6 @@ export const [useSlidesAndWidgets, provideSlidesAndWidgets] = createInjectableHo
     }
 
     watch(
-      widgets,
-      () => {
-        console.log("createdWidgetsMap", createdWidgetsMap.value);
-        console.log("updatedWidgetsMap", updatedWidgetsMap.value);
-        console.log("removedWidgetsMap", removedWidgetsMap.value);
-      },
-      { deep: true, immediate: true },
-    );
-
-    watch(
       slides,
       (v) => {
         console.log("slides", v);
@@ -227,6 +230,7 @@ export const [useSlidesAndWidgets, provideSlidesAndWidgets] = createInjectableHo
       activeSlideIndex,
 
       addSlide,
+      updateSlide,
       removeSlide,
       clearSlide,
       removeWidget,

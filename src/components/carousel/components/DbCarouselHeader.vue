@@ -1,9 +1,9 @@
 <template>
   <div class="carousel_header">
     <div v-if="isEdit" class="carousel_header_input">
-      <input v-model="slideRef.title" type="text" />
+      <input v-model="localSlide.title" type="text" />
     </div>
-    <div v-else class="carousel_header_title">{{ slideRef.title }}</div>
+    <div v-else class="carousel_header_title">{{ localSlide.title }}</div>
     <div v-if="isEdit" class="carousel_header_actions" :class="{ 'carousel_header_actions--disabled': disabled }">
       <span class="carousel_header_action" @click="$emit('add')"> Добавить </span>
       <span v-if="widgetsCount" class="carousel_header_action carousel_header_action--delete" @click="$emit('clear')">
@@ -30,7 +30,7 @@
 </template>
 
 <script lang="ts" setup>
-import { inject, toRef } from "vue";
+import { inject, ref, toRef, watch } from "vue";
 import { DbToggleTheme } from "@/components/toggle-theme";
 import { DbSvgIcon } from "@/components/ui";
 import { ThemeKey } from "@/composables";
@@ -48,6 +48,7 @@ type Emits = {
   cancel: [];
   clear: [];
   remove: [];
+  update: [slide: TSlide];
   add: [];
   save: [];
   setSlide: [slideIndex: number];
@@ -56,7 +57,7 @@ type Emits = {
 const { slide } = defineProps<Props>();
 const emits = defineEmits<Emits>();
 const theme = inject(ThemeKey);
-const slideRef = toRef(() => slide);
+const localSlide = ref(slide);
 
 function save() {
   emits("save");
@@ -67,6 +68,10 @@ function cancel() {
   emits("cancel");
   emits("toggle");
 }
+
+watch(localSlide, (v) => {
+  emits("update", v);
+});
 </script>
 
 <style lang="scss" scoped>

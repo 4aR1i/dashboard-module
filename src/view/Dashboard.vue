@@ -11,6 +11,7 @@
           @cancel="cancel"
           @clear="clear"
           @remove="remove"
+          @update="updateSlide"
           @add="add"
           @save="save"
           @set-slide="setSlide"
@@ -96,6 +97,7 @@ const {
   activeSlideIndex,
 
   addSlide,
+  updateSlide,
   removeSlide,
   clearSlide,
   removeWidget,
